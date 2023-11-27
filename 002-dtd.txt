@@ -1,0 +1,28 @@
+Les DTD
+
+On peut définir les DTD en interne (sur le fichier xml) ou en externe sur un fichier avec l'extension .dtd
+
+Syntaxe d'une DTD
+    <!ELEMENT balise (contenu)>
+
+Déclaration délément : balise
+
+Balise qui contient une autre balise
+<contact>
+    <nom>Durand</nom>
+</contact>
+
+<!ELEMENT contact (nom)>
+
+ATTENTION : Si on applique les DTD, il faut les déclarer pour toutes les balises du document. Les balise qui ne seront pas répertoriés dans les DTDT ne seront pas utilisable et le document ne sera pas valide.
+
+<nom>Durand</nom>
+<!ELEMENT nom (#PCDATA)>
+
+Donc pour 
+<contact>
+    <nom>Durand</nom>
+</contact>
+on obtient 
+<!ELEMENT contact (nom)>
+    <!ELEMENT nom (#PCDATA)>

@@ -111,3 +111,164 @@ Dublin Core
 
 
 -->
+
+<!-- 
+    Les DTD : Document Type Definition
+
+    Fichiers de définition permettant de définir une structure stricte aux documents XML
+
+    Ce sont des règles qui permettent de définir la façon dont le document doit être écrit, 
+    si des balisesdoivent absolument être présentes ou imposer le type d'un donnée.
+
+    Quand un xml est soumis à des DTD, il faut vérifier qu'il est valide => conforme aux DTD
+
+    Les DTDT imposent donc des normes d'écritures, utiles quand un document est écrit par 
+    plusieurs personnes et pour pouvoir comprendre comment l'exploiter.
+
+-->
+
+<!-- DTD -->
+
+<!-- Balise contenant une autre balise -->
+<contact>
+    <nom>Durand</nom>
+</contact>
+<!--  pour contact -->
+<!ELEMENT contact (nom)>
+
+<!-- pour nom -->
+<!ELEMENT nom (#PCDATA)>
+
+<!-- si la balise nom est vide -->
+<!ELEMENT nom EMPTY>
+<element /> ou <element></element>
+
+<!-- si la balise peut être vide ou remplie -->
+<!ELEMENT nom ANY>
+
+<element></element>
+<!-- ou -->
+<element><balise /></element>
+<!-- ou -->
+<element>texte</element>
+<!-- ou -->
+<element>texte<balise /></element>
+<!-- ou -->
+<element><balise />texte</element>
+
+<contact>
+    <nom>Durand</nom>
+    <prenom>Jacques</prenom>
+    <age>49</age>
+</contact>
+<contact>
+    <nom>ACME Inc.</nom>
+    <prenom></prenom>
+    <age></age>
+</contact>
+
+<!ELEMENT contact (nom, prenom, age)>
+    <!ELEMENT nom (#PCDATA)>
+    <!ELEMENT prenom (#PCDATA)>
+    <!ELEMENT age (#PCDATA)>
+
+<!-- ici, la balise contact DOIT avoir un e balise nom, prenom et age -->
+
+Balise optionnelle
+<!ELEMENT contact (nom, prenom?, age)>
+<!-- ici, la balise contact DOIT avoir une balise nom et age, la balise prenom n'est pas obligatoire. -->
+
+<!-- Balise optionnelle répétée -->
+
+<adresses>
+    <adresse />
+    <adresse />
+    <adresse />
+</adresses>
+
+<!ELEMENT adresses (adresse*)>
+
+<!-- Balise obligatoire qui peut être répétée plusieurs fois -->
+<emails>
+    <email></email> <!-- au moins une balise email obligatoire -->
+    <email></email> <!-- il peut y avoir plusieurs emails -->
+</emails>
+
+<!ELEMENT emails (email+)>
+
+<contacts>
+    <contact>
+        <nom>Durand</nom>
+        <prenom>Jacques</prenom>
+        <prenom>Antoine</prenom>
+        <age>49</age>
+    </contact>
+    <contact>
+        <nom>ACME Inc.</nom>
+    </contact>
+</contacts>
+
+<!ELEMENT contacts (contact*)>
+    <!ELEMENT contact (nom, prenom*, age?)>
+        <!ELEMENT nom (#PCDATA)>
+        <!ELEMENT prenom (#PCDATA)>
+        <!ELEMENT age (#PCDATA)>
+
+<!-- les attributs des balises en DTD -->
+<!ELEMENT balise (contenu)>
+    <!ATTLIST balise attr>
+
+<!-- attribut identifiant unique obligatoire -->
+<contact numero="REF-001"></contact>
+
+<!ELEMENT contact ANY>
+    <!ATTLIST contact numero ID #REQUIRED>
+
+<!-- 
+    Propriété de présence des attributs
+    forme               signification
+    #IMPLIED            Attribut facultatif
+    #REQUIRED           Attribut obligatoire
+    #FIXED valeur       Attribut avec cette valeur, non modifiable
+    "valuer"            Attribut avec cette valeurn par défaut mais modifiable
+-->
+
+<!-- attribut qui fait référence à un attribut référence de valeur unique -->
+<!-- je ne fait que les parties contact et adresses -->
+
+<!ELEMENT contact ANY>
+    <!ATTLIST contact personne (physique|morale) "physique">
+    <!ATTLIST contact numero ID #REQUIRED>
+<!ELEMENT adresse ANY>
+    <!ATTLIST adresse type (facturation|livraison) "facturation">
+    <!ATTLIST adresse personne IDREF #REQUIRED>
+
+
+<annuaire>
+    <contacts>
+        <contact personne="physique" numero="REF-001" />
+        <contact personne="morale" numero="REF-002" />
+        <contact personne="physique" numero="REF-003" />
+    </contacts>
+    <adresses>
+        <adresse type="facturation" personne="REF-001" />
+        <adresse type="livraison" personne="REF-001" />
+        <adresse type="livraison" personne="REF-001" />
+        <adresse type="facturation" personne="REF-002" />
+    </adresses>
+</annuaire>
+
+<!-- IDREFS = plusieurs éléménets font référence au même ID -->
+<artiste name="Korn" artisteId="K-0001" />
+<artiste name="Ice Cube" artisteId="IC-0002" />
+<artiste name="Incubus" artisteId="I-0003" />
+<artiste name="Limp Bizkit" artisteId="LB-0004" />
+<album name="Follow the leader" albumArtisteId="K-0001" />
+<album name="Family values tour" albumArtisteId="K-0001 IC-0002 I-0003 LB-0004" />
+
+<!ELEMENT artiste EMPTY>
+    <!ATTLIST artist name CDATA #REQUIRED>
+    <!ATTLIST artist artisteId ID #REQUIRED>
+<!ELEMENT album EMPTY>
+    <!ATTLIST album name CDATA #REQUIRED>
+    <!ATTLIST album albumArtisteId IDREFS #IMPLIED>
