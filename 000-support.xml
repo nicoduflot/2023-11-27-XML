@@ -1,0 +1,113 @@
+<!-- 
+    L'espace de nom donne un contexte à un terme, par exemple certains mots ont plusieurs définitions, 
+    c'est le contexte dans lequel on utilise ce mot qui donne sa "fonction / définition" finale
+
+    On peut par exemple associer le document à l’espace de nom XHTML et par soucis de praticité 
+    on va utiliser le préfixe html (faciliter la lecture humaine du document) 
+    car il faut savoir qu’à la base le choix du préfixe est totalement arbitraire.
+-->
+
+<html:html xmlns:html="http://www.w3.org/1999/xhtml">
+    <html:head>
+
+    </html:head>
+    <html:body>
+        <!-- du contenu html -->
+    </html:body>
+</html:html>
+
+<!-- 
+    on a vu qu'il était possible de déclarer plusieurs espaces de noms pour un même document
+-->
+
+<html:html xmlns:html="http://www.w3.org/1999/xhtml" 
+    xmlns:mml="http://www.w3.org/1998/Math/MathML">
+    <html:head>
+        <html:title>Les espaces de noms</html:title>
+    </html:head>
+    <html:body>
+        <!-- du contenu html -->
+        <mml:math>
+            <mml:apply>
+                <mml:eq>
+                    <!-- l'équation en question -->
+                </mml:eq>
+            </mml:apply>
+        </mml:math>
+    </html:body>
+</html:html>
+
+<!-- 
+    on peut limiter la portée de la déclaration d'un espace de nom, 
+    pour la déclaration multiple, 
+    il est possible aussi de n'utilisier ( d'appeler ) un espace de nom seulement quand il est requis
+-->
+<!-- ici, on utilise le dialecte HTML -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Les espaces de noms</title>
+    </head>
+    <body>
+        <!-- du contenu html -->
+        <!-- à partir de cette balise, elle et tout ce qu'elle contyient utilise le dialect math -->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq>
+                    <!-- l'équation en question -->
+                </eq>
+            </apply>
+        </math>
+        <!-- on est "sorti" de la portée du vocabulaire math, on reviens dans le vocabulaire html -->
+    </body>
+</html>
+
+<!-- 
+    Mais comment faire si les balises que je doit utiliser à l'intérieur du vocabulaire HTML n'ont pas de namespace ?
+    il est en fait possible "d'annuler" un namespace de la même façon que l'on a appelé math dans un contexte html
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Les espaces de noms</title>
+    </head>
+    <body>
+        <!-- du contenu html -->
+        <!-- à partir de cette balise, on écrit notre propre dialecte, sans vocabulaire référent -->
+        <personnage xmlns="">
+            <nom>Lagaffe</nom>
+            <prenom>Gaston</prenom>
+        </personnage>
+        <!-- on est "sorti" de la portée du "pas de vocabulaire", on reviens dans le vocabulaire html -->
+    </body>
+</html>
+
+<!-- 
+XML
+    http://www.w3.org/XML/1998/namespace 
+XInclude
+    http://www.w3.org/2001/XInclude 
+XLink
+    http://www.w3.org/1999/xlink 
+MathML
+    http://www.w3.org/1998/Math/MathML 
+XHTML
+    http://www.w3.org/1999/xhtml 
+SVG
+    http://www.w3.org/2000/svg 
+Schémas
+    http://www.w3.org/2001/XMLSchema 
+Instances de schémas
+    http://www.w3.org/2001/XMLSchema-instance 
+Schematron
+    http://purl.oclc.org/dsdl/schematron 
+XSLT
+    http://www.w3.org/1999/XSL/Transform 
+XSL-FO
+    http://www.w3.org/1999/XSL/Format 
+DocBook
+    https://tdg.docbook.org/tdg/5.1/ 
+Dublin Core
+    https://www.dublincore.org/specifications/dublin-core/dcmi-terms/ 
+
+
+-->

@@ -41,3 +41,5 @@ Doit être compris de la façon suivante
         <...></...>
     </race>
 </personnage>
+
+voir 000-support.xml pour plus de détails sur les namespace
