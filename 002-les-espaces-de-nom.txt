@@ -1,0 +1,43 @@
+Les espaces de noms (namespace) : permet d'utiliser des vocabulaires.
+
+Un vocabulaire : 
+Équivalent de "dialectes" XML qui ont été définis pour des utilisations diverses.
+Plutôt que de redéfinir un dialecte unique au besoin pour un fichier XML, on fait appel aux vocabulaires et on les utilisent en définissant un espace de nom par vocabulaire appelé. Cet espace de nom est utilisé en préfixe d'une balise de ce vocabulaire quand c'est ce "dialecte" qui est utilisé.
+
+Un dialecte standard existe, le "Dublin Core", https://www.dublincore.org/specifications/dublin-core/dcmi-terms/ ,
+il contient une quinzaine d'élément dont title, creator, subject et date, utilsés pour pouvoir décrire les caractéristiques 
+principales d'un document (métadonnées ou metadata).
+Le DC (dublin core) est international, il est recommandé de l'utiliser pour éviter d'introduire de nouveaux vocabulaires.
+
+"DocBook" est un autre vocabulaire qui permet de décrire les métadonnées d'un livre https://tdg.docbook.org/tdg/5.1/
+
+"Xinclude" https://www.w3.org/TR/xinclude/ permet d'inclure dans un fichier xml d'autres fichiers xml.
+
+Ex xinclude
+
+François-vilon.xml
+<personnage xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="classe-voleur.xml" />
+    <xi:include href="race-elfe.xml" />
+</personnage>
+
+classe-voleur.xml
+<classe>
+    <...></...>
+</classe>
+
+race-elfe.xml
+<race>
+    <...></...>
+</race>
+
+Doit être compris de la façon suivante
+
+<personnage xmlns:xi="http://www.w3.org/2001/XInclude">
+    <classe>
+        <...></...>
+    </classe>
+    <race>
+        <...></...>
+    </race>
+</personnage>

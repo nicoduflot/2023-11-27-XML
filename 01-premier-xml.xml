@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+    Le prologue.
+    C'est la première ligne OBLIGATOIRE d'un document xml, elle donne des informations sur le traitement
+
+    version : la version XML utilisée pour l'écriture du fichier, il en existe deux : 1.0 (1998) et la 1.1 (2004),
+    le W3C (world wide web consortium) préconise d'utiliser la 1.0
+
+    encoding : le codage des caractères utilisé dans le document.
+    De base c'est UTF-8 (Universal character set Transformation Format 8bits), certains éditeurs enregistren sous le format ISO8859-1 (il suffit dele changer dans le prologue).
+
+    standalone : est-ce que le document possède un document rattaché ( par exemple un document contenant un schéma DTD ou xsd de formatage du xml) notre permier fichier sera utilisé seul et sans schema, donc standalone="yes"
+-->
+
+<!-- Élément racine -->
+<contacts lang="fr">
+    <!-- une entrée du carnet de contacts -->
+    <contact type="physique">
+        <nom>Durand</nom>
+        <prenom>Jean</prenom>
+        <adresses>
+            <adresse type="facturation">
+                <numero>7</numero>
+                <voie type="Impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>7</numero>
+                <voie type="Impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR"></pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>1</numero>
+                <voie type="Rue">Rue de la paix</voie>
+                <codepostal>75001</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+        </adresses>
+        <emails>
+            <email type="personnel">jean.durand@yahoo.fr</email>
+            <email type="professionel">jdurand@acme.com</email>
+        </emails>
+    </contact>
+    <contact type="morale">
+        <nom>Acme Inc.</nom>
+        <adresses>
+            <adresse type="facturation">
+                <numero>7</numero>
+                <voie type="Impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>7</numero>
+                <voie type="Impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>14</numero>
+                <voie type="Place">Place des États-unis</voie>
+                <codepostal>75016</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+        </adresses>
+    </contact>
+</contacts>

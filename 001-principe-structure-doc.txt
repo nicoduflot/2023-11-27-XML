@@ -1,0 +1,110 @@
+On peut créer les balie XML et les nommer au besoin (selon le format de données, le type des données, etc.)
+Seleon les règles règles suivantes :
+    - Les noms peuvent contenir des lettre, des chiffres et certains caractères spéciaux
+    - les noms doivent OBLIGATOIREMENT débuter par une lettre OU un underscore ( _ )
+    - Les noms des balises NE PEUVENT PAS commencer avec les trois lettres XML (quelle que soit la casse)
+    - les noms des balises NE PEUVENT PAS contenir d'espace
+    - On évitera les caractères - , ; . < et le >
+
+Les balises XML
+
+Il existe deux type de balises : 
+
+Balise qui fonctionnent par paire
+    <balise>donnée</balise>
+    <balise type="data">donnée</balise>
+    <balise>
+        <autreBalise>
+            Donnée
+        </autreBalise>
+    </balise>
+    <_test></_test>
+
+    <2main></2main>         => INTERDIT
+    <test.old></test.old>   => INTERDIT
+    <dc:title></title>      => : est autorisée mais c'est un cas particulier : il fait référence à l'utilisation d'un "vocabulaire" de format de donnée XML définit. (ici dc => Dublin Core)
+
+Les balises uniques
+    <balise />
+    <balise data="donnée" />
+    <balise data="donnée" autreAttribut="autre donnée" />
+
+Les balises vont souvent contenir des attributs, pour indiquer des options, des informations "cachées", se sont des compléments d'informations sur les données contenues dnas les balises XML.
+
+Les règles de nommage des attributs :
+    - idem que les noms des balises
+    - les valeurs des attributs doivent être limitées par des guillements simples 'valeur' ou doubles "valeur".
+    - dans une balise, le même attribut nepeut être présent qu'une seule fois.
+
+Quelques exemples (le prix d'un article)
+
+<article>
+    <nom>
+        Mug Holder Goldorak
+    </nom>
+    <reference>
+        MUG-ANIME-Grendizer-01
+    </reference>
+    <!-- Liste des prix selon les devies acceptées -->
+    <prix total="25.3" devise="euro" />
+    <prix total="26.68" devise="USD" />
+</article>
+
+ou 
+
+<article>
+    <nom>
+        Mug Holder Goldorak
+    </nom>
+    <reference>
+        MUG-ANIME-Grendizer-01
+    </reference>
+    <!-- Liste des prix selon les devies acceptées -->
+    <prix>
+        <total>
+            25.3
+        </total>
+        <devise>
+            euro
+        </devise>
+    </prix>
+    <prix>
+        <total>
+            26.68
+        </total>
+        <devise>
+            USD
+        </devise>
+    </prix>
+</article>
+
+ou 
+
+<article>
+    <nom>
+        Mug Holder Goldorak
+    </nom>
+    <reference>
+        MUG-ANIME-Grendizer-01
+    </reference>
+    <!-- Liste des prix selon les devies acceptées -->
+    <prix devise="euro">25.3</prix>
+    <prix devise="USD">26.68</prix>
+</article>
+
+<!-- commentaire en xml (idem que le commentaire en HTML) -->
+
+Le corps du document est appelé la racine, c'est elle qui est l'ancêtre commun de toutes les balises.
+
+<racine>
+    <balise1>Donnée 1</balise1>
+    <balise2>Donnée 2</balise2>
+    <balise3>Donnée 3</balise3>
+</racine>
+
+Un document XML bien formé suit donc les règles suivantes : 
+*   Le prologue est bien renseigné.
+*   Le document XML ne possède qu'une seule balise racine
+*   Le nom des balises et des attributs suivent les règles de nommage* Toutes les balises en paires sont correctement fermées
+*   Toutes les valeurs des attributs sont entre des guillements simples ou doubles.
+*   Les balises de votre document XML ne se chevauchent pas, il existe une arborescence dans votre document.
