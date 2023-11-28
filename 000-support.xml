@@ -362,13 +362,13 @@ Balise optionnelle
 
 <!-- utilisation des entités externes dans le xml -->
 <voiture>
-    &dacia;
+    %dacia;
 </voiture>
 <voiture>
-    &renault;
+    %renault;
 </voiture>
 <voiture>
-    &citroen;
+    %citroen;
 </voiture>
 
 <!-- dacia.xml -->
@@ -377,7 +377,7 @@ Balise optionnelle
     <!ELEMENT description (marque, modele, portes)>
         <!ELEMENT marque (#PCDATA)>
         <!ELEMENT modele (#PCDATA)>
-        <!ELEMENT porte (#PCDATA)>
+        <!ELEMENT portes (#PCDATA)>
 ]>
 <description>
     <marque>
