@@ -1,4 +1,24 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE book [
+  <!ELEMENT book (title, dc:title, titleabbrev, info, dedication, preface, chapter, appendix)>
+  <!ATTLIST book xmlns CDATA #REQUIRED>
+  <!ATTLIST book xmlns:dc CDATA #REQUIRED>
+    <!ELEMENT title (#PCDATA)>
+    <!ELEMENT dc:title (#PCDATA)>
+    <!ELEMENT titleabbrev (#PCDATA)>
+    <!ELEMENT info (legalnotice, author)>
+      <!ELEMENT legalnotice (para)>
+      <!ELEMENT para (#PCDATA)>
+      <!ELEMENT author (personname)>
+      <!ELEMENT personname (firstname, surname)>
+      <!ELEMENT firstname (#PCDATA)>
+      <!ELEMENT surname (#PCDATA)>
+    <!ELEMENT dedication (para)>
+    <!ELEMENT preface (title, para)>
+    <!ELEMENT chapter (title, para)>
+    <!ELEMENT appendix (title, para)>
+
+]>
 <book xmlns='http://docbook.org/ns/docbook'
 	xmlns:dc='https://www.dublincore.org/specifications/dublin-core/dcmi-terms/'>
 	<!-- 

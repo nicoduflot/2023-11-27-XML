@@ -9,10 +9,22 @@
             <!ELEMENT prenom (#PCDATA | surnom)*>
                 <!ELEMENT surnom (#PCDATA)>
             <!ELEMENT adresses (adresse*)>
-                
+                <!ELEMENT adresse (numero, voie, codepostal, ville, pays)>
+                <!ATTLIST adresse type (facturation|livraison) #REQUIRED>
+                    <!ELEMENT numero (#PCDATA)>
+                    <!ELEMENT voie (#PCDATA)>
+                    <!ATTLIST voie type (rue | avenue | boulevard | impasse | place | faubourg | route | chemin | voie) #REQUIRED>
+                    <!ELEMENT codepostal (#PCDATA)>
+                    <!ELEMENT ville (#PCDATA)>
+                    <!ELEMENT pays (#PCDATA)>
+                    <!ATTLIST pays codeLang (fr-FR|en-US) #REQUIRED>
             <!ELEMENT emails (email+)>
+                <!ELEMENT email (#PCDATA)>
+                <!ATTLIST email type (personnel|professionel) "personnel">
 ]>
-
+<!-- 
+   rue | avenue | boulevard | impasse | place | faubourg | route | chemin | voie 
+-->
 <!-- le xml -->
 <rolodex>
     <!-- une entrée du carnet de contacts -->
@@ -25,21 +37,21 @@
         <adresses>
             <adresse type="facturation">
                 <numero>7</numero>
-                <voie type="Impasse">Impasse du chemin</voie>
+                <voie type="impasse">Impasse du chemin</voie>
                 <codepostal>75015</codepostal>
                 <ville>Paris</ville>
                 <pays codeLang="fr-FR">FRANCE</pays>
             </adresse>
             <adresse type="livraison">
                 <numero>7</numero>
-                <voie type="Impasse">Impasse du chemin</voie>
+                <voie type="impasse">Impasse du chemin</voie>
                 <codepostal>75015</codepostal>
                 <ville>Paris</ville>
                 <pays codeLang="fr-FR"></pays>
             </adresse>
             <adresse type="livraison">
                 <numero>1</numero>
-                <voie type="Rue">Rue de la paix</voie>
+                <voie type="rue">Rue de la paix</voie>
                 <codepostal>75001</codepostal>
                 <ville>Paris</ville>
                 <pays codeLang="fr-FR">FRANCE</pays>
@@ -55,30 +67,30 @@
         <adresses>
             <adresse type="facturation">
                 <numero>7</numero>
-                <voie type="Impasse">Impasse du chemin</voie>
+                <voie type="impasse">Impasse du chemin</voie>
                 <codepostal>75015</codepostal>
                 <ville>Paris</ville>
                 <pays codeLang="fr-FR">FRANCE</pays>
             </adresse>
             <adresse type="livraison">
                 <numero>7</numero>
-                <voie type="Impasse">Impasse du chemin</voie>
+                <voie type="impasse">Impasse du chemin</voie>
                 <codepostal>75015</codepostal>
                 <ville>Paris</ville>
                 <pays codeLang="fr-FR">FRANCE</pays>
             </adresse>
             <adresse type="livraison">
                 <numero>14</numero>
-                <voie type="Place">Place des États-unis</voie>
+                <voie type="place">Place des États-unis</voie>
                 <codepostal>75016</codepostal>
                 <ville>Paris</ville>
                 <pays codeLang="fr-FR">FRANCE</pays>
             </adresse>
         </adresses>
         <emails>
-            <email type="professionnel">contact@acme.com</email>
-            <email type="professionnel">sav@acme.com</email>
-            <email type="professionnel">evenenement@acme.com</email>
+            <email type="professionel">contact@acme.com</email>
+            <email type="professionel">sav@acme.com</email>
+            <email type="professionel">evenenement@acme.com</email>
         </emails>
     </contact>
 </rolodex>
