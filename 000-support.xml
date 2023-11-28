@@ -698,3 +698,29 @@ Balise optionnelle
 <personne num="P6" parents="P1 P3">Camille</personne>
 <personne num="P7" parents="P2 P4">Zélie</personne>
 <personne num="P8" parents="P2 P4">Abraham</personne>
+
+<!--
+    Entity
+    Entity permet de référencer des éléments entités, souvent non xml, qui sont déclarés dans des dtd (soit fichier.dtd soit doctype dtd directement dans le fichier xml)
+    Ne s'utilise que dans les attributs
+ -->
+
+ <!-- .xsd -->
+<xsd:attribute name="marque" type="xsd:ENTITY" />
+ <!-- .dtd -->
+<!ENTITY samsung "Samsung">
+<!ENTITY apple "Apple">
+ <!-- .xml -->
+ <telephone marque="samsung">Galaxy SII</samsung>
+ <telephone marque="apple">Iphone 254</samsung>
+
+<!-- ENTITIES -->
+ <!-- .xsd -->
+ <xsd:attribute name="marque" type="xsd:ENTITIES" />
+ <!-- .dtd -->
+<!ENTITY samsung "Samsung">
+<!ENTITY apple "Apple">
+ <!-- .xml -->
+ <telephone marque="samsung apple" />
+
+ <!-- Décrire un élément complexe -->
