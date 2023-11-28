@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!-- Déclaration des DTD -->
+<!DOCTYPE rolodex SYSTEM "05-dtd-externe.dtd">
+<!-- 
+   rue | avenue | boulevard | impasse | place | faubourg | route | chemin | voie 
+-->
+<!-- le xml -->
+<rolodex>
+    <!-- une entrée du carnet de contacts -->
+    <contact type="physique">
+        <nom>Durand</nom>
+        <prenom>
+            Jean
+            <surnom>Jojo</surnom>
+        </prenom>
+        <adresses>
+            <adresse type="facturation">
+                <numero>7</numero>
+                <voie type="impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>7</numero>
+                <voie type="impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR"></pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>1</numero>
+                <voie type="rue">Rue de la paix</voie>
+                <codepostal>75001</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+        </adresses>
+        <emails>
+            <email type="personnel">jean.durand@yahoo.fr</email>
+            <email type="professionel">jdurand@acme.com</email>
+        </emails>
+    </contact>
+    <contact type="morale">
+        <nom>Acme Inc.</nom>
+        <adresses>
+            <adresse type="facturation">
+                <numero>7</numero>
+                <voie type="impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>7</numero>
+                <voie type="impasse">Impasse du chemin</voie>
+                <codepostal>75015</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+            <adresse type="livraison">
+                <numero>14</numero>
+                <voie type="place">Place des États-unis</voie>
+                <codepostal>75016</codepostal>
+                <ville>Paris</ville>
+                <pays codeLang="fr-FR">FRANCE</pays>
+            </adresse>
+        </adresses>
+        <emails>
+            <email type="professionel">contact@acme.com</email>
+            <email type="professionel">sav@acme.com</email>
+            <email type="professionel">evenenement@acme.com</email>
+        </emails>
+    </contact>
+</rolodex>

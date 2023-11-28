@@ -1,0 +1,19 @@
+<!ELEMENT rolodex (contact*)>
+        <!ELEMENT contact (nom, prenom*, adresses, emails)>
+        <!ATTLIST contact type (physique|morale) "physique">
+            <!ELEMENT nom (#PCDATA)>
+            <!ELEMENT prenom (#PCDATA | surnom)*>
+                <!ELEMENT surnom (#PCDATA)>
+            <!ELEMENT adresses (adresse*)>
+                <!ELEMENT adresse (numero, voie, codepostal, ville, pays)>
+                <!ATTLIST adresse type (facturation|livraison) #REQUIRED>
+                    <!ELEMENT numero (#PCDATA)>
+                    <!ELEMENT voie (#PCDATA)>
+                    <!ATTLIST voie type (rue | avenue | boulevard | impasse | place | faubourg | route | chemin | voie) #REQUIRED>
+                    <!ELEMENT codepostal (#PCDATA)>
+                    <!ELEMENT ville (#PCDATA)>
+                    <!ELEMENT pays (#PCDATA)>
+                    <!ATTLIST pays codeLang (fr-FR|en-US) #REQUIRED>
+            <!ELEMENT emails (email+)>
+                <!ELEMENT email (#PCDATA)>
+                <!ATTLIST email type (personnel|professionel) "personnel">
