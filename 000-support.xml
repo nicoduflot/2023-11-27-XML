@@ -411,7 +411,7 @@ Balise optionnelle
 <!-- prologue et déclaration d'un élément racine .xsd -->
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- déclaration de l'élément racine imposé du xsd-->
-<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <!-- le schéma xsd du document -->
 </xsd:schema>
 
@@ -489,5 +489,212 @@ Balise optionnelle
 
 <!-- 
     Déclaration des éléments en xsd 
-    
+
+    Élément simple : 
+    une balise, sans attribut, ne contenant pas d'autres balises, dont le type de donnée contenu est simple.
+
+    Élément complexe :
+    une balise qui contient d'autres balises, ou dont le type de donnée contenu est complexe, ou qui possède au moins un attribut.
 -->
+
+<!-- ni attribut, nit élément, type de donnée simple => élément simple -->
+<nom>Durand</nom>
+
+<!-- Contient un attribut mais type de donnée simple : élément complexe -->
+<personne type="physique">Jean Durand</personne>
+
+<!-- contient d'autres balises -->
+<!-- personne : élément complexe -->
+<personne type="physique">
+    <!-- nom et prenom : éléments simples -->
+    <nom>Durand</nom>
+    <prenom>Jean</prenom>
+</personne>
+
+<!-- 
+    Déclarer un élément simple
+    <namespace:element (avec le namespace définit pour le schéma) name="nom de l'élément" type="le type de la donnée contenue dans l'élément" />
+    <xsd:element name="" type="" />
+-->
+<nom>Durand</nom>
+<prenom>Jean</prenom>
+<age>43</age>
+
+<!-- en xsd -->
+<xsd:element name="nom" type="xsd:string" />
+<xsd:element name="prenom" type="xsd:string" />
+<xsd:element name="age" type="xsd:integer" />
+
+<!-- 
+    Quelques types simple et leur définitions
+    xsd:string  : chaîne de caractère "monsieur untel" "2d" "205"
+    xsd:decimal : nombre à virgule flottante "12.5" "3.14168"
+    xsd:integer : nombre entier "-2" "0" "12" "65535"
+    xsd:boolean : booléen => vrai ou faux true or false
+    xsd:date    : une date AAAA-MM-JJ ex 2023-11-28
+    xsd:time    : une heure hh:mm:ss ex 13:55:22
+-->
+
+<!-- mettre une valeur par défaut -->
+<xsd:element name="nom" type="xsd:string" default="Doe" />
+<xsd:element name="prenom" type="xsd:string" default="John" />
+<xsd:element name="age" type="xsd:integer" />
+
+<!-- exemple de xml validés par ce schéma -->
+<!-- validé -->
+<nom>Durand</nom>
+<prenom>Jean</prenom>
+<age>43</age>
+
+<!-- validé -->
+<nom></nom> <!-- valeur par défaut "Doe" -->
+<prenom>Jean</prenom>
+<age>43</age>
+
+<!-- validé -->
+<nom>Durand</nom>
+<prenom></prenom> <!-- valeur par défaut "John" -->
+<age>43</age>
+
+<!-- validé -->
+<nom></nom> <!-- valeur par défaut "Doe" -->
+<prenom></prenom> <!-- valeur par défaut "John" -->
+<age>43</age>
+<!-- valide -->
+<nom></nom> <!-- valeur par défaut "Doe" -->
+<prenom></prenom> <!-- valeur par défaut "John" -->
+<age></age> <!-- pas de valeur par défaut, mais comme il n'est pas indiqué comme obligatoire, le xml est valide -->
+
+<!--
+    Valeur constante 
+    valeur inchangeable, imposée et non valide si la balise est vide
+-->
+
+<xsd:element name="status" type="xsd:string" fixed="Employé·e" />
+<!-- valide -->
+<status>Employé·e</status>
+<!-- invalide car donnée <=> Employé·e-->
+<status>Junior</status>
+<!-- invalide car donnée vide -->
+<status></status>
+
+<!-- 
+    Les attributs
+
+    Se sont par essence des éléments simple, pour les déclarer le mot clef c'est attribute
+    <xsd:attribute  name="nom de l'attribut" type="type de l'attribut" />
+ -->
+
+<personne type="physique"></personne>
+
+<!-- attribut type :  -->
+<xsd:attribute name="type" type="xsd:string" />
+
+<!-- ATTENTION, on déclare normalement cet attribut dans la déclaration de l'élement qui le contient, qui est lui un élément complexe -->
+
+<!-- valeur par défaut, constante, et obligatoire -->
+<!-- par défault -->
+<xsd:attribute name="type" type="xsd:string" default="physique" />
+
+<!-- constante -->
+<!-- attribut devise -->
+<xsd:attribute name="devise" type="xsd:string" fixed="euro" />
+
+<!-- valide -->
+<prix devise="euro">12.5</prix>
+
+<!-- valide -->
+<prix devise="">12.5</prix>
+
+<!-- invalide -->
+<prix devise="USD">12.5</prix>
+
+<!-- obligatoire -->
+<xsd:attribute name="devise" type="xsd:string" use="required" />
+
+
+
+<!-- Quelques exemple d'éléments et d'attributs avec des types différents -->
+<!-- string : chaîne de caractère -->
+<xsd:element name="string" type="xsd:string" />
+<string>Karamasov</string>
+<string>Une phrase choc</string>
+<!-- 
+    certains caractère spéciaux doivent être écrit avec leur notation HTML 
+    & devra s'écrire en donnée &amp;
+-->
+<string>Tintin &amp; Milou "Les copains" &lt;toto&gt; </string>
+<!-- '&' => &amp; '<' => &lt; '>' => &gt;  -->
+
+<string>toto</string>
+<string>
+    toto, 
+    c'est le meilleur
+</string>
+
+<!-- language -->
+<xsd:element name="langue" type="xsd:language" />
+<!-- 
+    norme de l'écriture d'un type language
+    les deux lettres du code langue basé sur la norme ISO 639
+    peut être complété par les deux lettre du code pays selon la norme ISO 3166
+    xx (code langue en minsucule)
+    xx-YY (YY :  code pays en majuscule)
+ -->
+
+ <langue>fr-CA</langue>
+ <langue>fr-FR</langue>
+ <langue>en</langue>
+ <langue>en-US</langue>
+ <langue>en-GB</langue>
+ <langue>en-CA</langue>
+
+<!-- 
+    nmtoken string sans espace au début et à la fin, sans tabulation, sans retour chariot, sans saut de ligne
+    caractères spéciaux acceptés : 
+        . - _ et :
+    utilisé uniquement pour les attributs
+-->
+<xsd:attribute name="myToken" type="xsd:NMTOKEN" />
+<balise myToken="A:B_b-2.3">Contenu de ma balise</balise>
+<balise myToken="AZERTY">Contenu de ma balise</balise>
+<balise myToken="123456">Contenu de ma balise</balise>
+
+<!-- invalide : il y a un espace après le dernier caracrtère de la valeur de l'attribut <> type nmtoken -->
+<balise myToken="123456 ">Contenu de ma balise</balise>
+
+<!-- 
+    nmtokens : liste de nmtoken, séparés par un espace, même caractères spéciaux acceptés que nmtoken 
+    et uniquement utilisable dans les attributs
+ -->
+
+<xsd:attribute name="myTokens" type="xsd:NMTOKENS" />
+<balise myTokens="A:B_b-2.3">Contenu de ma balise</balise>
+<balise myTokens="A:B_b-2.3 AZERTY">Contenu de ma balise</balise>
+<balise myTokens="AZERTY 123456">Contenu de ma balise</balise>
+<balise myTokens="A:B_b-2.3 AZERTY 123456">Contenu de ma balise</balise>
+
+<!-- invalide : il y a un espace avant le premier caracrtère de la valeur de l'attribut <> type nmtokens -->
+<balise myTokens=" AZERTY 123456">Contenu de ma balise</balise>
+
+<!-- ID et IDREF -->
+<xsd:attribute name="num" type="xsd:ID" />
+<xsd:attribute name="parent" type="xsd:IDREF" />
+<personne num="P1">Paul</personne>
+<personne num="P2">JP</personne>
+<personne num="P3" parent="P1">Martin</personne>
+<personne num="P4" parent="P2">Camille</personne>
+
+<!-- ID et IDREFS -->
+
+<xsd:attribute name="num" type="xsd:ID" />
+<xsd:attribute name="parents" type="xsd:IDREFS" />
+<personne num="P1" parents="">Paul</personne>
+<personne num="P2" parents="">JP</personne>
+<personne num="P3" parents="">Marie</personne>
+<personne num="P4" parents="">Julie</personne>
+
+<personne num="P5" parents="P1 P3">Martin</personne>
+<personne num="P6" parents="P1 P3">Camille</personne>
+<personne num="P7" parents="P2 P4">Zélie</personne>
+<personne num="P8" parents="P2 P4">Abraham</personne>
