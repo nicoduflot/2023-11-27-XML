@@ -390,3 +390,104 @@ Balise optionnelle
         5
     </portes>
 </description>
+
+<!-- 
+    Autre schéma de validation XML : XSD (Xml Schema Definition)
+    Pourquoi ?
+    1 - Les DTD ne sont pas au format XML, c'est un autre language avec sa propre syntaxe et ses règles/
+        => Il faut l'utiliser avec XML et il se peut que certaines API vont lire le XML et le DTD différemment.
+    2 - On ne peut pas typer les données en DTD (typer une donnée : dire que la donnée dans l'attribut ou l'élément correspond à un type,
+        ex :    12 => entier
+                12.5 => nombre à virgule flottante
+                toto => chaîne de caractère
+    
+    Les xsd permet de typer les données, il est aussi plus précis sur l'écriture de contraintes 
+    (présence d'un élément ou d'un attribut, séquence d'élément, ordre précis ou non d'éléments dans une balise, etc)
+
+    Il s'écrit en xml, il se stocke dans un fichier externe avec l'extension .xsd, et il utilise comme les fichiers.xml 
+    un prologue dont le nom de l'élément racine est imposé
+-->
+
+<!-- prologue et déclaration d'un élément racine .xsd -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- déclaration de l'élément racine imposé du xsd-->
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema">
+    <!-- le schéma xsd du document -->
+</xsd:schema>
+
+<!-- ici on a déclaré un espace de nom pour le schéma (xsd) donc tous les éléments seront préfixé xsd: -->
+
+<!-- le fichier xml qui va utiliser le xsd peut appeler les xsd avec ou sans espace -->
+
+<!-- fichier xml utilisant un xsd ne décrivant pas d'espace de nom -->
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<agenda xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="agenda.xsd">
+    <!-- on crée un ns pour pourvoir appeler un schéma qui va définir tout l'agenda -->
+    <rolodex>
+        <nom>Durant</nom>
+    </rolodex>
+    <garage>
+        <voiture>
+            <marque>Opel</marque>
+        </voiture>
+    </garage>
+</agenda>
+
+<!-- fichier xml utilisant un xsd décrivant un espace de nom -->
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<agenda 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="urn:Rolodex rolodex.xsd" 
+    xsi:schemaLocation="urn:Garage garage.xsd" >
+    <!-- on crée un ns pour pourvoir appeler plusieurs schémas pour décrire différentes partie de l'agenda -->
+    <Rolodex:rolodex>
+        <Rolodex:nom>Durant</Rolodex:nom>
+    </Rolodex:rolodex>
+    <Garage:garage>
+        <Garage:voiture>
+            <Garage:marque>Opel</Garage:marque>
+        </Garage:voiture>
+    </Garage:garage>
+</agenda>
+
+<!-- 
+    le fichier au dessus a récupéré à la fois 
+        - les données de rolodex, dont le schéma est défini dans rolodex.xsd  
+        - les données de garage, , dont le schéma est défini dans garage.xsd 
+
+    on a donc besoin dans le xml d'un namespace de schéma pour associer 
+    les différentes parties du xml aux schémas de vérification de chaque partie
+-->
+
+<!-- 
+    en dessous, pour chaque xml (rolodex et garage) on extrait chaque partie à part, 
+    chacune ayant son xsd, donc pas besoin de décrire un espace de nom pour 
+    le xsd a appliquer à chaque partie 
+-->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<agenda 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="rolodex.xsd">
+    <!-- on crée un ns pour pourvoir appeler plusieurs schémas pour décrire différentes partie de l'agenda -->
+    <rolodex>
+        <nom>Durant</nom>
+    </rolodex>
+</agenda>
+
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<agenda 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="garage.xsd" >
+    <!-- on crée un ns pour pourvoir appeler plusieurs schémas pour décrire différentes partie de l'agenda -->
+    <garage>
+        <voiture>
+            <marque>Opel</marque>
+        </voiture>
+    </garage>
+</agenda>
+
+<!-- 
+    Déclaration des éléments en xsd 
+    
+-->
