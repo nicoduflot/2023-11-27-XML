@@ -230,7 +230,7 @@ Balise optionnelle
     #IMPLIED            Attribut facultatif
     #REQUIRED           Attribut obligatoire
     #FIXED valeur       Attribut avec cette valeur, non modifiable
-    "valuer"            Attribut avec cette valeurn par défaut mais modifiable
+    "valeur"            Attribut avec cette valeur par défaut mais modifiable
 -->
 
 <!-- attribut qui fait référence à un attribut référence de valeur unique -->
@@ -272,3 +272,121 @@ Balise optionnelle
 <!ELEMENT album EMPTY>
     <!ATTLIST album name CDATA #REQUIRED>
     <!ATTLIST album albumArtisteId IDREFS #IMPLIED>
+
+
+<!-- 
+    La valeur d'un attribut est une constante 
+    La valeur de cet attribut, si renseigné, doit être de la valeur indiquée
+-->
+<!ELEMENT prix (#PCDATA)>
+    <!ATTLIST prix devise CDATA #FIXED "euro">
+
+<!-- élément valide -->
+<prix devise="euro">12</prix>
+<!-- élément valide car par défaut on utilise euro -->
+<prix>12</prix>
+<!-- invalide car USD <=> euro -->
+<prix devise="USD">12</prix>
+
+<!-- 
+    Les entités
+    Se sont des alias qui permettent de réutiliser des informations dans le document xml OU dans les DTD
+        - générales
+        - paramètres
+        - externes
+-->
+
+<!ENTITY dacia "Dacia">
+<!ENTITY renault "Renault">
+<!ENTITY citroen "Citroën">
+
+<voiture>
+    <marque>&dacia;</marque>
+</voiture>
+<voiture>
+    <marque>&renault;</marque>
+</voiture>
+<voiture>
+    <marque>&citroen;</marque>
+</voiture>
+
+<!-- le xml doit se comprendre de la façon suivante -->
+
+<voiture>
+    <marque>Dacia</marque>
+</voiture>
+<voiture>
+    <marque>Renault</marque>
+</voiture>
+<voiture>
+    <marque>Citroën</marque>
+</voiture>
+
+<!-- 
+    Entité paramètre
+    N'apparaît QUE DANS LES DTD
+    Elles associent un alias à une partie de déclaration de DTD 
+    (une partie qui est souvent ré-utilisée ou très longue et qui la lecture du DTD compliquée)
+-->
+
+<voiture marque="Dacia" />
+<voiture marque="Renault" />
+<voiture marque="Citroën" />
+
+<!-- DTD classique pour l'attribut marque -->
+<!ATTLIST voiture marque (Dacia|Renault|Citroën) #REQUIRED >
+
+<!-- Avec l'entité paramètre -->
+<!ENTITY % listeMarques "marque (Dacia|Renault|Citroën) #REQUIRED">
+<!ATTLIST voiture %listeMarques>
+
+<!-- autre exemple -->
+<!ELEMENT contact (nom?, prenom?, login) >
+<!ELEMENT personnage (nom?, prenom?, role) >
+
+<!-- avec les entités paramètres -->
+<!ENTITY % identite "nom?, prenom?">
+<!ELEMENT contact (%identite, login) >
+<!ELEMENT personnage (%identite, role) >
+
+<!-- 
+    Les entités externes
+    Permettent de faire référence, comme les entités générales, à des information a utiliser dans le document xml,
+    mais elles sont écritent dans un ficher externe
+-->
+
+<!-- déclaration des entités externe -->
+<!ENTITY dacia SYSTEM "dacia.xml">
+<!ENTITY renault SYSTEM "renault.xml">
+<!ENTITY citroen SYSTEM "citroen.xml">
+
+<!-- utilisation des entités externes dans le xml -->
+<voiture>
+    &dacia;
+</voiture>
+<voiture>
+    &renault;
+</voiture>
+<voiture>
+    &citroen;
+</voiture>
+
+<!-- dacia.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE description [
+    <!ELEMENT description (marque, modele, portes)>
+        <!ELEMENT marque (#PCDATA)>
+        <!ELEMENT modele (#PCDATA)>
+        <!ELEMENT porte (#PCDATA)>
+]>
+<description>
+    <marque>
+        Dacia
+    </marque>
+    <modele>
+        Sandero
+    </modele>
+    <portes>
+        5
+    </portes>
+</description>
