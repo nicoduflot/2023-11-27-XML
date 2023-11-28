@@ -723,4 +723,183 @@ Balise optionnelle
  <!-- .xml -->
  <telephone marque="samsung apple" />
 
- <!-- Décrire un élément complexe -->
+ <!-- Les éléments et les types complexes -->
+ <!-- personne : élément complexe (il contient d'autres balises) -->
+ <personne>
+    <!-- élément simple -->
+    <nom>Robert</nom>
+    <!-- élément simple -->    
+    <prenom>Axel</prenom>
+ </personne>
+
+ <!-- personne : élément complexe contient au moins un attribut -->
+ <personne type="physique">Axel Robert</personne>
+
+ <!-- balise est un élément complexe : contient d'autres balises et au moins un attribut -->
+ <balise attr="test">
+    <!--  contient d'autres balises -->
+ </balise>
+
+ <!-- pour déclarer un élément complexe -->
+ <xsd:element name="personne">
+    <xsd:complexeType>
+        <!-- description du complexeType attrobuts s'il y en a de personne et déclarations des balises à l'intérieur s'il y en a -->
+    </xsd:complexeType>
+ </xsd:personne>
+
+ <!-- 
+    Élements complexes avec du contenu simple
+  -->
+
+<prix devise="euro">5600</prix>
+
+<!-- élément prix -->
+<xsd:element name="prix">
+    <!-- indiquer que l'élément est de type complexe -->
+    <xsd:complexeType>
+        <!-- préciser que son contenu est simple -->
+        <xsd:simpleContent>
+            <!-- déclarer le contenu simple de la balise (ici le type du contenu) -->
+            <xsd:extension base="xsd:positiveInteger">
+                <xsd:attribute name="devise" type="xsd:string" />
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexeType>
+</xsd:element>
+
+<voiture marque="Renault" moteur="essence">Clio</voiture>
+
+<!-- élément voiture -->
+<xsd:element name="voiture">
+    <!-- indiquer que l'élément est de type complexe -->
+    <xsd:complexeType>
+        <!-- préciser que son contenu est simple -->
+        <xsd:simpleContent>
+            <!-- déclarer le contenu simple de la balise (ici le type du contenu) -->
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="marque" type="xsd:string" />
+                <xsd:attribute name="moteur" type="xsd:string" />
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexeType>
+</xsd:element>
+
+<!-- balise qui contient d'autres balises -->
+<personne type="physique">
+    <prenom>Axel</prenom>
+    <nom>Robert</nom>
+</personne>
+
+<xsd:element name="personne">
+    <xsd:complexeType>
+        <!-- ATTENTION : sequence implique que l'ordre des balises dans le XML doit être dans le même ordre dans la déclaration -->
+        <xsd:sequence>
+            <xsd:element name="prenom" type="xsd:string" />
+            <xsd:element name="nom" type="xsd:string" />
+        </xsd:sequence>
+        <xsd:attribute name="type" type="xsd:string" />
+    </xsd:complexeType>
+</xsd:personne>
+
+<!-- si on utilise all à la place de sequence, il est possible de déclarer les balise dans n'importe quel ordre  -->
+<xsd:element name="personne">
+    <xsd:complexeType>
+        <xsd:all>
+            <xsd:element name="nom" type="xsd:string" />
+            <xsd:element name="prenom" type="xsd:string" />
+        </xsd:all>
+        <xsd:attribute name="type" type="xsd:string" />
+    </xsd:complexeType>
+</xsd:personne>
+
+<!-- dans les cas précédents, les balise déclarées doivent être présentent dans le xml -->
+<!-- en utilisant choice au lieu de sequence ou all, les balises déclarées dans ce choix deviennent facultative -->
+<xsd:element name="personne">
+    <xsd:complexeType>
+        <xsd:choice>
+            <xsd:element name="nom" type="xsd:string" />
+            <xsd:element name="prenom" type="xsd:string" />
+        </xsd:choice>
+        <xsd:attribute name="type" type="xsd:string" />
+    </xsd:complexeType>
+</xsd:personne>
+
+<!-- avec choice, tous les format xml suivants sont valides -->
+
+<personne type="physique">
+    <prenom>Axel</prenom>
+    <nom>Robert</nom>
+</personne>
+
+<personne type="physique">
+    <prenom>Axel</prenom>
+</personne>
+
+<personne type="physique">
+    <nom>Robert</nom>
+</personne>
+
+<personne type="physique"></personne>
+
+<!-- un type complexe dans un type complexe -->
+<personne>
+    <identite>
+        <nom>Vance</nom>
+        <prenom>Jack</prenom>
+    </identite>
+</personne>
+
+<xsd:element name="personne">
+    <xsd:complexeType>
+        <xsd:sequence>
+            <xsd:element name="identite">
+                <xsd:complexeType>
+                    <xsd:sequence>
+                        <xsd:element name="nom" type="xsd:string" />
+                        <xsd:element name="prenom" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexeType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexeType>
+</xsd:element>
+
+<!-- contenu mixte -->
+<description>
+    Une console de <b>80</b>x<b>120</b> cm, <prix>200</prix> euro
+</description>
+
+
+<facture>
+    L'acheteur <acheteur>Brendan L. Mulligan</acheteur>, doit payer la somme de <somme>1000</somme> euros
+</facture>
+<!-- facture -->
+<xsd:element name="facture">
+    <xsd:complexeType mixed="true">
+        <xsd:sequence>
+            <xsd:element name="acheteur" type="xsd:string" />
+            <xsd:element name="somme" type="xsd:float" />
+        </xsd:sequence>
+    </xsd:complexeType>
+</xsd:element>
+
+<!-- les occurences d'un élément -->
+<personne type="physique">
+    <nom>Robert</nom>
+    <prenom>Axel</prenom>
+    <prenom>Patrice</prenom>
+    <prenom>Maurice</prenom>
+    <prenom>Marcel</prenom>
+</personne>
+
+<xsd:element name="personne">
+    <xsd:complexeType>
+        <xsd:sequence>
+            <xsd:elemennt name="nom" type="xsd:string" />
+            <xsd:element name="prenom" type="xsd:string" minOccurs="1" maxOccurs="4" />
+        </xsd:sequence>
+        <xsd:attribute name="type" type="xsd:string" />
+    </xsd:complexeType>
+</xsd:personne>
+
+<!-- de 0 à X occurences -->
