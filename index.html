@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Parcourir un XML avec Javascript</title>
+    <script src="./js/script.js"></script>
 </head>
 <body>
-
+    <header>
+        <h1>Formation XML</h1>
+    </header>
+    <main>
+        <section>
+            <article>
+                <header>
+                    <h2>XML avec Javascript</h2>
+                </header>
+                <p>
+                    <button 
+                        data-action="readxml" 
+                        data-xmlsource="./01-premier-xml.xml" 
+                        data-target="xmlcontent" 
+                        data-root="contacts">
+                        01 premier XML
+                    </button>
+                </p>
+                <p>
+                    <button 
+                        data-action="readxml" 
+                        data-xmlsource="./07-repertoire.xml" 
+                        data-target="xmlcontent" 
+                        data-root="repertoire">
+                        07 Répertoire
+                    </button>
+                </p>
+            </article>
+        </section>
+    </main>
 </body>
 </html>

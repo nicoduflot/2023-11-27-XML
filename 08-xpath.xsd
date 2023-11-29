@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <!-- balises isolées enfants direct de personne -->
-    <!-- nom prenom -->
-
-    <xsd:element name="nom" type="xsd:string" />
-    <xsd:element name="prenom" type="xsd:string" />
+    
+    <xsd:element name="nom" type="xsd:string"/>
+    <xsd:element name="prenom" type="xsd:string"/>
 
     <!-- balises enfants directs d'adresse -->
-    <!-- 
-        numero 
-        voie avec la liste de voie possible dans type suivante
-            impasse
-            avenue
-            rue
-            route
-            chemin
-            place
-            faubourg
-            boulevard
-        
-        codePostal
-        ville
-        pays
-    -->
 
     <xsd:element name="numero" type="xsd:string"/>
     <xsd:element name="voie">
@@ -53,12 +36,6 @@
     <xsd:element name="pays" type="xsd:string"/>
 
     <!-- balises enfants directs de telephones -->
-    <!-- 
-        telephone avec la liste de type suivante
-            fixe
-            bureau
-            portable
-    -->
 
     <xsd:element name="telephone">
         <xsd:complexType>
@@ -70,6 +47,7 @@
                                 <xsd:enumeration value="fixe"/>
                                 <xsd:enumeration value="bureau"/>
                                 <xsd:enumeration value="portable"/>
+                                <xsd:enumeration value="professionnel"/>
                             </xsd:restriction>
                         </xsd:simpleType>
                     </xsd:attribute>
@@ -81,10 +59,8 @@
     <!-- balises enfants directs d'emails -->
 
     <!-- 
-        restriction pattern sur email
+        avoir une restriction sur le format d'mail et l'ajouter à la restriction du contenu de l'attribut type
     -->
-
-    <!-- création d'un type pour l'email -->
     <xsd:simpleType name="formatEmail">
         <xsd:restriction base="xsd:token">
             <xsd:maxLength value="254"/>
@@ -109,7 +85,7 @@
         </xsd:complexType>
     </xsd:element>
 
-    <!-- balise adresse avec ref des balises dans adresse -->
+    <!-- balise adresse -->
 
     <xsd:element name="adresse">
         <xsd:complexType>
@@ -123,7 +99,7 @@
         </xsd:complexType>
     </xsd:element>
 
-    <!-- balise telephones (ref de la balise telephone) -->
+    <!-- balise telephones -->
 
     <xsd:element name="telephones">
         <xsd:complexType>
@@ -132,8 +108,6 @@
             </xsd:choice>
         </xsd:complexType>
     </xsd:element>
-
-    <!-- balise emails (ref de la balise email) -->
 
     <!-- balise emails -->
 
@@ -145,8 +119,7 @@
         </xsd:complexType>
     </xsd:element>
 
-    <!-- balise personne (ref des balise qui composent personne) -->
-
+    <!-- balise personne -->
     <xsd:element name="personne">
         <xsd:complexType>
             <xsd:sequence>
@@ -168,8 +141,8 @@
         </xsd:complexType>
     </xsd:element>
 
-    <!-- balise racine repertoire (ref de la balise personne) -->
-    
+    <!-- balise racine repertoire -->
+
     <xsd:element name="repertoire">
         <xsd:complexType>
             <xsd:sequence>
@@ -177,6 +150,5 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
-
 
 </xsd:schema>
