@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- ajouter le vocabulaire XSD et le lien vers le fichier .xsd -->
-<rolodex>
+<rolodex 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="06-intro-xsd.xsd">
     <personne>
         <nom>Duflot</nom>
         <prenom>Nicolas</prenom>
@@ -8,7 +9,7 @@
             <adresse>
                 <numero>3</numero>
                 <voie>Rue du parc</voie>
-                <codePostal>75001</codePostal>
+                <codepostal>75001</codepostal>
                 <ville>Paris</ville>
             </adresse>
         </adresses>

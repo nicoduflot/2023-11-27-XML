@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <!-- Balises enfants directes de personne -->
+
+    <!-- balises enfants directs d'adresse -->
+    <!-- 
+        numero 
+        voie avec la liste de voie possible dans type suivante
+            impasse
+            avenue
+            rue
+            route
+            chemin
+            place
+            faubourg
+            boulevard
+        
+        codePostal
+        ville
+        pays
+    -->
+
+    <!-- balises enfants directs de telephones -->
+    <!-- 
+        telephone avec la liste de type suivante
+            fixe
+            bureau
+            portable
+    -->
+
+    <!-- balises enfants directs d'emails -->
+
+    <!-- 
+        restriction pattern sur email
+    -->
+
+    <!-- création d'un type pour l'email -->
+
+    <!-- balise adresse avec ref des balises dans adresse -->
+
+    <!-- balise telephones (ref de la balise telephone) -->
+
+    <!-- balise emails (ref de la balise email) -->
+
+    <!-- balise emails -->
+
+    <!-- balise personne (ref des balise qui composent personne) -->
+
+    <!-- balise racine repertoire (ref de la balise personne) -->
+    
+</xsd:schema>
