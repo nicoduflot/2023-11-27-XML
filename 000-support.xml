@@ -977,7 +977,6 @@ facultative -->
         </comptes>
     </client>
 </banque>
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- définir le schéma du xsd -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -1011,7 +1010,8 @@ facultative -->
                                                         <xsd:complexType>
                                                             <xsd:simpleContent>
                                                                 <xsd:extension base="xsd:string">
-                                                                    <xsd:attribute name="codelang" type="xsd:string" />
+                                                                    <xsd:attribute name="codelang"
+                                                                        type="xsd:string" />
                                                                 </xsd:extension>
                                                             </xsd:simpleContent>
                                                         </xsd:complexType>
@@ -1066,7 +1066,6 @@ facultative -->
     pour les rendre plus facile a écrire et a lire
     le mot-clef : ref
 -->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- définir le schéma du xsd -->
 
@@ -1127,7 +1126,8 @@ facultative -->
 
 <!-- 
     On peut créer ses propres types (on le fait déjà quand on déclare complexType pour un élément).
-    Ici, compte et compte intérets ont le même format (une balise compte qui contient une balise montant)
+    Ici, compte et compte intérets ont le même format (une balise compte qui contient une balise
+montant)
 
     Comment déclarer sont propre type ?
 
@@ -1197,7 +1197,8 @@ facultative -->
 <xsd:element name="comptes">
     <xsd:complexType>
         <xsd:sequence>
-            <xsd:element name="compteInterets" type="compteInteret" minOccurs="0" maxOccurs= "unbounded" />
+            <xsd:element name="compteInterets" type="compteInteret" minOccurs="0"
+                maxOccurs="unbounded" />
             <xsd:element name="compte" type="compteCourant" />
         </xsd:sequence>
     </xsd:complexType>
@@ -1224,4 +1225,256 @@ facultative -->
     </xsd:element>
 </xsd:schema>
 
-<!-- créer ses types : deux façons -->
+<!-- 
+    Créer ses types : deux façons 
+
+    - par restriction
+    - par extension (compteCourant et compteInteret)
+-->
+
+<!-- 
+    Héritage par restriction
+-->
+
+<!-- pour un élément -->
+<xsd:element name="mon_nom">
+    <xsd:simpleType>
+        <xsd:restriction base="type_de_base">
+            <!-- type_de_base peut être : float, string, etc. -->
+            <!-- détails de la restriction -->
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:element>
+
+<!-- pour un attribut -->
+<xsd:attribute name="mon_nom">
+    <xsd:simpleType>
+        <xsd:restriction base="type_de_base">
+            <!-- type_de_base peut être : float, string, etc. -->
+            <!-- détails de la restriction -->
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:attribute>
+
+</xsd:element></xsd:element></xsd:element></xsd:element></xsd:element></xsd:element>
+
+<!-- exemple sur un attribut -->
+<!-- 
+    une balise personne qui possède un attribut age, 
+    dont la valeur doit être strictement supérieur à 17,
+    et strictement inférieur à 80
+
+    ]17, 80[ 17 et 80 exclus        minExclusive="17" maxExclusive="80"     <= le cas décris pour notre balise
+    [17, 80] 17 inclu, 80 inclu     minInclusive="17" maxInclusive="80"
+    ]17, 80] 17 exclu, 80 inclu     minExclusive="17" maxInclusive="80"
+    [17, 80[ 17 inclu, 80 exclu     minInclusive="17" maxExclusive="80"
+
+-->
+<!-- invalide age = 17 -->
+<personne age="17" />
+<!-- valide, 17 < age < 80 -->
+<personne age="18" />
+<!-- valide, 17 < age < 80 -->
+<personne age="43" />
+<!-- invalide age = 80 -->
+<personne age="80" />
+<xsd:element name="personne">
+    <xsd:complexType>
+        <!-- déclaration de l'attribut -->
+        <xsd:attribute>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:nonNegativeInteger">
+                    <xsd:minExclusive value="17" />
+                    <xsd:maxExclusive value="80" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- 
+    Les restrictions s'appliquent de la même manière pour
+    1 valeurs numériques
+    minExclusive    : valeur min exclue
+    minInclusive    : valeur min inclue
+    maxExclusive    : valeur max exclue
+    maxInclusive    : valeur max inclue
+    totalDigits     : le nombre exact de chiffres qui composent un nombre
+    fractionDigits  : le nombre exact de chiffres après la virgule
+
+    2 valeurs sur les chaînes de caractères
+    length          le nombre exact de caractères dans une chaîne de caractère
+    minLength       le nombre minimum de caractères dans une chaîne de caractère
+    maxLength       le nombre maximum de caractères dans une chaîne de caractère
+-->
+
+<!-- enumeration : liste des valeurs possibles pour un élément ou un attribut -->
+<!-- valide -->
+<personne type="physique">
+    <nom>Duflot</nom>
+</personne>
+
+<!-- valide -->
+<personne type="Morale">
+    <nom>Globo Inc.</nom>
+</personne>
+
+<!-- invalide -->
+<personne type="truc">
+    <nom>Bla !</nom>
+</personne>
+
+<xsd:element name="personne">
+    <xsd:complexType>
+        <!-- déclaration élément nom -->
+        <xsd:element name="nom" type="xsd:string" />
+        <!-- déclaration de l'attribut type avec la restriction sur les données qu'il peut contenir -->
+        <xsd:attribute name="type">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="physique" />
+                    <xsd:enumeration value="morale" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- reçu -->
+<nom>Gérard     Manfroi
+    
+</nom>
+<!-- interprété / lu -->
+<nom>Gérard Manfroi </nom>
+
+<!--
+    restriction sur les "espaces" dans les données à l'intérieur des élément ou des attributs
+    (tabulation, retour à la ligne, espaces simple en plusieurs fois
+
+    la restriction whiteSpace 
+
+    preserve    : garder la donnée telle qu'elle est reçue
+    replace     : remplace tous les espaces par des espaces simples (si il ya à la fois une tabulation, un retour chariot et un espace simple => 3 espaces simples)
+    collapse    : remplace tous les espaces par un espace simple (si il ya à la fois une tabulation, un retour chariot et un espace simple => 1 espace simple)
+
+-->
+
+<xsd:element name="nom">
+    <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+            <xsd:whiteSpace value="collapse" />
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:element>
+
+<!--  
+    Pattern 
+    détermine un modèle de chaîne de caractère pour vérifier si une chaîne est bien dans un format normé
+    par exemple, un email devra avoir une série de caractère, un arobase, un série de caractère, et au moins un point suivi d'une série de caractère
+    mot@entreprise.domaine  => bon
+    @entreprise.domaine     => mauvais
+    mot@.domaine            => mauvais
+    etc.
+
+    il existe différente version pour ce modèle, celui qu'on utilisera : ^[\w-\.]+@([\w-]+\.)+[\w-]{2,12}$
+    
+-->
+<!-- valide -->
+<email>nduflot@dawan.fr</email>
+
+<!-- invalide -->
+<email>@toto.com</email>
+
+<xsd:element name="email">
+    <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="254" />
+            <xsd:pattern value="^[\w-\.]+@([\w-]+\.)+[\w-]{2,12}$" />
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:element>
+
+<!--
+    Équivalent en xsd de ID IDREF (DTD)
+    
+    key et keyref
+    permet d'identifier et de référencer les ressources dans un schéma XML en étant plus précis que ID et IDREF
+ -->
+
+ <!-- 
+    key
+    un élément composé d'un selector en utilisant la syntaxe xpath 
+    xpath est le chmein (relatif ou abolu) des éléments dans l'arbre XML
+ -->
+
+ <!-- création d'une clef -->
+ <xsd:key name="nom_unique_de_la_clef">
+    <xsd:selector xpath="expression xpath utlisée pour l'élément déclaré en clef" />
+    <!-- une fois la clef déclarée, il faut identifier le ou les chamlps (field) concernés par la clef -->
+    <xsd:field xpath="expression xpath utlisée pour cibler le oules champs concernés par la clef" />
+ </xsd:key>
+
+ <!-- avec le xml suivant -->
+ <famille>
+    <membre id="m-01" parent="" />
+    <membre id="m-02" parent="m-01" />
+    <membre id="m-03" parent="m-01" />
+    <membre id="m-04" parent="m-02" />
+    <membre id="m-05" parent="m-02" />
+ </famille>
+
+ <!-- avec key et keyref -->
+ <!-- création de la clef du membre de la famille-->
+ <xsd:key name="membreId">
+    <!-- localisation de la balise avec xpath en chemin absolu (le xpath démarre depuis la racine de l'arbre xml) -->
+    <xsd:selector xpath="/membre" />
+    <!-- quel est l'attribut associé à la clef -->
+    <xsd:field xpath="@id" />
+    <!-- @id est le raccourci de l'écriture xpath attribute::id -->
+ </xsd:key>
+
+ <!-- création de la clef parent des membres de la famille -->
+ <xsd:key name="parentId">
+    <!-- localisation de la balise avec xpath en chemin absolu (le xpath démarre depuis la racine de l'arbre xml) -->
+    <xsd:selector xpath="/membre" />
+    <!-- quel est l'attribut associé à la clef -->
+    <xsd:field xpath="@parent" />
+    <!-- @parent est le raccourci de l'écriture xpath attribute::parent -->
+ </xsd:key>
+
+ <!-- faire le lien entre la clef parentId et la clef membreId -->
+ <xsd:keyref name="parentIdRef" refer="membreId">
+    <!-- on indique la balise qui utilisera la référence -->
+    <xsd:selector xpath="/membre" />
+    <!-- cibler l'attribut de la balise membre qui référence une balise mebre en tant que parent -->
+    <xsd:fiels xpath="@parent" />
+ </xsd:keyref>
+
+ <agenda>
+     <personne>
+        <client idContact="1"></client>
+        <client idContact="2"></client>
+        <client idContact="3"></client>
+     </personne>
+     <adresses>
+        <adresse contact="1"></adresse>
+        <adresse contact="1"></adresse>
+        <adresse contact="2"></adresse>
+        <adresse contact="3"></adresse>
+     </adresses>
+ </agenda>
+
+ <xsd:key name="clientId">
+    <xsd:selector xpath="/personne/client" />
+    <xsd:field xpath="@idContact" />
+ </xsd:key>
+ 
+ <xsd:key name="adrContact">
+    <xsd:selector xpath="/adresses/adresse" />
+    <xsd:field xpath="@contact" />
+ </xsd:key>
+
+ <xsd:keyref name="clientAdrId" refer="clientId">
+    <xsd:selector xpath="/personne/adresse" />
+    <xsd:fiels xpath="@contact" />
+ </xsd:keyref>
