@@ -4,7 +4,10 @@
     <xsd:element name="rolodex">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="personne">
+                <xsd:element 
+                    name="personne" 
+                    minOccurs="0" 
+                    maxOccurs="unbounded">
                     <xsd:complexType>
                         <xsd:sequence>
                             <xsd:element name="nom" type="xsd:string" />
@@ -12,7 +15,10 @@
                             <xsd:element name="adresses">
                                 <xsd:complexType>
                                     <xsd:sequence>
-                                        <xsd:element name="adresse">
+                                        <xsd:element 
+                                            name="adresse" 
+                                            minOccurs="0" 
+                                            maxOccurs="unbounded">
                                             <xsd:complexType>
                                                 <xsd:sequence>
                                                     <xsd:element name="numero" type="xsd:string" />

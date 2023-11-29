@@ -895,11 +895,25 @@ Balise optionnelle
 <xsd:element name="personne">
     <xsd:complexeType>
         <xsd:sequence>
-            <xsd:elemennt name="nom" type="xsd:string" />
-            <xsd:element name="prenom" type="xsd:string" minOccurs="1" maxOccurs="4" />
+            <xsd:element name="nom" type="xsd:string" />
+            <xsd:element name="prenom" type="xsd:string" 
+            minOccurs="1" 
+            maxOccurs="4" />
         </xsd:sequence>
         <xsd:attribute name="type" type="xsd:string" />
     </xsd:complexeType>
 </xsd:personne>
 
 <!-- de 0 à X occurences -->
+
+<xsd:element name="personne">
+    <xsd:complexeType>
+        <xsd:sequence>
+            <xsd:element name="nom" type="xsd:string" />
+            <xsd:element name="prenom" type="xsd:string" 
+            minOccurs="0" 
+            maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="type" type="xsd:string" />
+    </xsd:complexeType>
+</xsd:personne>

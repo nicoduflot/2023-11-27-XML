@@ -12,6 +12,12 @@
                 <codepostal>75001</codepostal>
                 <ville>Paris</ville>
             </adresse>
+            <adresse>
+                <numero>3</numero>
+                <voie>Rue du parc</voie>
+                <codepostal>75001</codepostal>
+                <ville>Paris</ville>
+            </adresse>
         </adresses>
         <!-- balise emails -->
     </personne>
