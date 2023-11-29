@@ -20,7 +20,7 @@
     on a vu qu'il était possible de déclarer plusieurs espaces de noms pour un même document
 -->
 
-<html:html xmlns:html="http://www.w3.org/1999/xhtml" 
+<html:html xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:mml="http://www.w3.org/1998/Math/MathML">
     <html:head>
         <html:title>Les espaces de noms</html:title>
@@ -62,8 +62,10 @@
 </html>
 
 <!-- 
-    Mais comment faire si les balises que je doit utiliser à l'intérieur du vocabulaire HTML n'ont pas de namespace ?
-    il est en fait possible "d'annuler" un namespace de la même façon que l'on a appelé math dans un contexte html
+    Mais comment faire si les balises que je doit utiliser à l'intérieur du vocabulaire HTML n'ont pas
+de namespace ?
+    il est en fait possible "d'annuler" un namespace de la même façon que l'on a appelé math dans un
+contexte html
 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -77,7 +79,8 @@
             <nom>Lagaffe</nom>
             <prenom>Gaston</prenom>
         </personnage>
-        <!-- on est "sorti" de la portée du "pas de vocabulaire", on reviens dans le vocabulaire html -->
+        <!-- on est "sorti" de la portée du "pas de vocabulaire", on reviens dans le vocabulaire
+        html -->
     </body>
 </html>
 
@@ -141,14 +144,17 @@ Dublin Core
 
 <!-- si la balise nom est vide -->
 <!ELEMENT nom EMPTY>
-<element /> ou <element></element>
+<element /> ou
+<element></element>
 
 <!-- si la balise peut être vide ou remplie -->
 <!ELEMENT nom ANY>
 
 <element></element>
 <!-- ou -->
-<element><balise /></element>
+<element>
+    <balise />
+</element>
 <!-- ou -->
 <element>texte</element>
 <!-- ou -->
@@ -168,15 +174,16 @@ Dublin Core
 </contact>
 
 <!ELEMENT contact (nom, prenom, age)>
-    <!ELEMENT nom (#PCDATA)>
-    <!ELEMENT prenom (#PCDATA)>
-    <!ELEMENT age (#PCDATA)>
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT prenom (#PCDATA)>
+<!ELEMENT age (#PCDATA)>
 
 <!-- ici, la balise contact DOIT avoir un e balise nom, prenom et age -->
 
 Balise optionnelle
 <!ELEMENT contact (nom, prenom?, age)>
-<!-- ici, la balise contact DOIT avoir une balise nom et age, la balise prenom n'est pas obligatoire. -->
+<!-- ici, la balise contact DOIT avoir une balise nom et age, la balise prenom n'est pas
+obligatoire. -->
 
 <!-- Balise optionnelle répétée -->
 
@@ -209,20 +216,20 @@ Balise optionnelle
 </contacts>
 
 <!ELEMENT contacts (contact*)>
-    <!ELEMENT contact (nom, prenom*, age?)>
-        <!ELEMENT nom (#PCDATA)>
-        <!ELEMENT prenom (#PCDATA)>
-        <!ELEMENT age (#PCDATA)>
+<!ELEMENT contact (nom, prenom*, age?)>
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT prenom (#PCDATA)>
+<!ELEMENT age (#PCDATA)>
 
 <!-- les attributs des balises en DTD -->
 <!ELEMENT balise (contenu)>
-    <!ATTLIST balise attr>
+<!ATTLIST balise attr>
 
 <!-- attribut identifiant unique obligatoire -->
 <contact numero="REF-001"></contact>
 
 <!ELEMENT contact ANY>
-    <!ATTLIST contact numero ID #REQUIRED>
+<!ATTLIST contact numero ID #REQUIRED>
 
 <!-- 
     Propriété de présence des attributs
@@ -237,11 +244,11 @@ Balise optionnelle
 <!-- je ne fait que les parties contact et adresses -->
 
 <!ELEMENT contact ANY>
-    <!ATTLIST contact personne (physique|morale) "physique">
-    <!ATTLIST contact numero ID #REQUIRED>
+<!ATTLIST contact personne (physique|morale) "physique">
+<!ATTLIST contact numero ID #REQUIRED>
 <!ELEMENT adresse ANY>
-    <!ATTLIST adresse type (facturation|livraison) "facturation">
-    <!ATTLIST adresse personne IDREF #REQUIRED>
+<!ATTLIST adresse type (facturation|livraison) "facturation">
+<!ATTLIST adresse personne IDREF #REQUIRED>
 
 
 <annuaire>
@@ -267,11 +274,11 @@ Balise optionnelle
 <album name="Family values tour" albumArtisteId="K-0001 IC-0002 I-0003 LB-0004" />
 
 <!ELEMENT artiste EMPTY>
-    <!ATTLIST artist name CDATA #REQUIRED>
-    <!ATTLIST artist artisteId ID #REQUIRED>
+<!ATTLIST artist name CDATA #REQUIRED>
+<!ATTLIST artist artisteId ID #REQUIRED>
 <!ELEMENT album EMPTY>
-    <!ATTLIST album name CDATA #REQUIRED>
-    <!ATTLIST album albumArtisteId IDREFS #IMPLIED>
+<!ATTLIST album name CDATA #REQUIRED>
+<!ATTLIST album albumArtisteId IDREFS #IMPLIED>
 
 
 <!-- 
@@ -279,7 +286,7 @@ Balise optionnelle
     La valeur de cet attribut, si renseigné, doit être de la valeur indiquée
 -->
 <!ELEMENT prix (#PCDATA)>
-    <!ATTLIST prix devise CDATA #FIXED "euro">
+<!ATTLIST prix devise CDATA #FIXED "euro">
 
 <!-- élément valide -->
 <prix devise="euro">12</prix>
@@ -290,7 +297,8 @@ Balise optionnelle
 
 <!-- 
     Les entités
-    Se sont des alias qui permettent de réutiliser des informations dans le document xml OU dans les DTD
+    Se sont des alias qui permettent de réutiliser des informations dans le document xml OU dans les
+DTD
         - générales
         - paramètres
         - externes
@@ -334,24 +342,25 @@ Balise optionnelle
 <voiture marque="Citroën" />
 
 <!-- DTD classique pour l'attribut marque -->
-<!ATTLIST voiture marque (Dacia|Renault|Citroën) #REQUIRED >
+<!ATTLIST voiture marque (Dacia|Renault|Citroën) #REQUIRED>
 
 <!-- Avec l'entité paramètre -->
 <!ENTITY % listeMarques "marque (Dacia|Renault|Citroën) #REQUIRED">
 <!ATTLIST voiture %listeMarques>
 
 <!-- autre exemple -->
-<!ELEMENT contact (nom?, prenom?, login) >
-<!ELEMENT personnage (nom?, prenom?, role) >
+<!ELEMENT contact (nom?, prenom?, login)>
+<!ELEMENT personnage (nom?, prenom?, role)>
 
 <!-- avec les entités paramètres -->
 <!ENTITY % identite "nom?, prenom?">
-<!ELEMENT contact (%identite, login) >
-<!ELEMENT personnage (%identite, role) >
+<!ELEMENT contact (%identite, login)>
+<!ELEMENT personnage (%identite, role)>
 
 <!-- 
     Les entités externes
-    Permettent de faire référence, comme les entités générales, à des information a utiliser dans le document xml,
+    Permettent de faire référence, comme les entités générales, à des information a utiliser dans le
+document xml,
     mais elles sont écritent dans un ficher externe
 -->
 
@@ -375,9 +384,9 @@ Balise optionnelle
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE description [
     <!ELEMENT description (marque, modele, portes)>
-        <!ELEMENT marque (#PCDATA)>
-        <!ELEMENT modele (#PCDATA)>
-        <!ELEMENT portes (#PCDATA)>
+    <!ELEMENT marque (#PCDATA)>
+    <!ELEMENT modele (#PCDATA)>
+    <!ELEMENT portes (#PCDATA)>
 ]>
 <description>
     <marque>
@@ -394,34 +403,41 @@ Balise optionnelle
 <!-- 
     Autre schéma de validation XML : XSD (Xml Schema Definition)
     Pourquoi ?
-    1 - Les DTD ne sont pas au format XML, c'est un autre language avec sa propre syntaxe et ses règles/
-        => Il faut l'utiliser avec XML et il se peut que certaines API vont lire le XML et le DTD différemment.
-    2 - On ne peut pas typer les données en DTD (typer une donnée : dire que la donnée dans l'attribut ou l'élément correspond à un type,
+    1 - Les DTD ne sont pas au format XML, c'est un autre language avec sa propre syntaxe et ses
+règles/
+        => Il faut l'utiliser avec XML et il se peut que certaines API vont lire le XML et le DTD
+différemment.
+    2 - On ne peut pas typer les données en DTD (typer une donnée : dire que la donnée dans l'attribut
+ou l'élément correspond à un type,
         ex :    12 => entier
                 12.5 => nombre à virgule flottante
                 toto => chaîne de caractère
     
     Les xsd permet de typer les données, il est aussi plus précis sur l'écriture de contraintes 
-    (présence d'un élément ou d'un attribut, séquence d'élément, ordre précis ou non d'éléments dans une balise, etc)
+    (présence d'un élément ou d'un attribut, séquence d'élément, ordre précis ou non d'éléments dans
+une balise, etc)
 
-    Il s'écrit en xml, il se stocke dans un fichier externe avec l'extension .xsd, et il utilise comme les fichiers.xml 
+    Il s'écrit en xml, il se stocke dans un fichier externe avec l'extension .xsd, et il utilise comme
+les fichiers.xml 
     un prologue dont le nom de l'élément racine est imposé
 -->
 
 <!-- prologue et déclaration d'un élément racine .xsd -->
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- déclaration de l'élément racine imposé du xsd-->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <!-- le schéma xsd du document -->
 </xsd:schema>
 
-<!-- ici on a déclaré un espace de nom pour le schéma (xsd) donc tous les éléments seront préfixé xsd: -->
+<!-- ici on a déclaré un espace de nom pour le schéma (xsd) donc tous les éléments seront préfixé
+xsd: -->
 
 <!-- le fichier xml qui va utiliser le xsd peut appeler les xsd avec ou sans espace -->
 
 <!-- fichier xml utilisant un xsd ne décrivant pas d'espace de nom -->
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<agenda xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="agenda.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<agenda xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="agenda.xsd">
     <!-- on crée un ns pour pourvoir appeler un schéma qui va définir tout l'agenda -->
     <rolodex>
         <nom>Durant</nom>
@@ -434,12 +450,13 @@ Balise optionnelle
 </agenda>
 
 <!-- fichier xml utilisant un xsd décrivant un espace de nom -->
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<agenda 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="urn:Rolodex rolodex.xsd" 
-    xsi:schemaLocation="urn:Garage garage.xsd" >
-    <!-- on crée un ns pour pourvoir appeler plusieurs schémas pour décrire différentes partie de l'agenda -->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<agenda
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:Rolodex rolodex.xsd"
+    xsi:schemaLocation="urn:Garage garage.xsd">
+    <!-- on crée un ns pour pourvoir appeler plusieurs schémas pour décrire différentes partie de
+    l'agenda -->
     <Rolodex:rolodex>
         <Rolodex:nom>Durant</Rolodex:nom>
     </Rolodex:rolodex>
@@ -464,22 +481,22 @@ Balise optionnelle
     chacune ayant son xsd, donc pas besoin de décrire un espace de nom pour 
     le xsd a appliquer à chaque partie 
 -->
-
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<agenda 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<agenda
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="rolodex.xsd">
-    <!-- on crée un ns pour pourvoir appeler plusieurs schémas pour décrire différentes partie de l'agenda -->
+    <!-- on crée un ns pour pourvoir appeler plusieurs schémas pour décrire différentes partie de
+    l'agenda -->
     <rolodex>
         <nom>Durant</nom>
     </rolodex>
 </agenda>
-
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<agenda 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:noNamespaceSchemaLocation="garage.xsd" >
-    <!-- on crée un ns pour pourvoir appeler plusieurs schémas pour décrire différentes partie de l'agenda -->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<agenda
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="garage.xsd">
+    <!-- on crée un ns pour pourvoir appeler plusieurs schémas pour décrire différentes partie de
+    l'agenda -->
     <garage>
         <voiture>
             <marque>Opel</marque>
@@ -491,10 +508,12 @@ Balise optionnelle
     Déclaration des éléments en xsd 
 
     Élément simple : 
-    une balise, sans attribut, ne contenant pas d'autres balises, dont le type de donnée contenu est simple.
+    une balise, sans attribut, ne contenant pas d'autres balises, dont le type de donnée contenu est
+simple.
 
     Élément complexe :
-    une balise qui contient d'autres balises, ou dont le type de donnée contenu est complexe, ou qui possède au moins un attribut.
+    une balise qui contient d'autres balises, ou dont le type de donnée contenu est complexe, ou qui
+possède au moins un attribut.
 -->
 
 <!-- ni attribut, nit élément, type de donnée simple => élément simple -->
@@ -513,7 +532,8 @@ Balise optionnelle
 
 <!-- 
     Déclarer un élément simple
-    <namespace:element (avec le namespace définit pour le schéma) name="nom de l'élément" type="le type de la donnée contenue dans l'élément" />
+    <namespace:element (avec le namespace définit pour le schéma) name="nom de l'élément" type="le type
+de la donnée contenue dans l'élément" />
     <xsd:element name="" type="" />
 -->
 <nom>Durand</nom>
@@ -563,7 +583,8 @@ Balise optionnelle
 <!-- valide -->
 <nom></nom> <!-- valeur par défaut "Doe" -->
 <prenom></prenom> <!-- valeur par défaut "John" -->
-<age></age> <!-- pas de valeur par défaut, mais comme il n'est pas indiqué comme obligatoire, le xml est valide -->
+<age></age> <!-- pas de valeur par défaut, mais comme il n'est pas indiqué comme obligatoire, le xml
+est valide -->
 
 <!--
     Valeur constante 
@@ -590,7 +611,8 @@ Balise optionnelle
 <!-- attribut type :  -->
 <xsd:attribute name="type" type="xsd:string" />
 
-<!-- ATTENTION, on déclare normalement cet attribut dans la déclaration de l'élement qui le contient, qui est lui un élément complexe -->
+<!-- ATTENTION, on déclare normalement cet attribut dans la déclaration de l'élement qui le
+contient, qui est lui un élément complexe -->
 
 <!-- valeur par défaut, constante, et obligatoire -->
 <!-- par défault -->
@@ -613,7 +635,6 @@ Balise optionnelle
 <xsd:attribute name="devise" type="xsd:string" use="required" />
 
 
-
 <!-- Quelques exemple d'éléments et d'attributs avec des types différents -->
 <!-- string : chaîne de caractère -->
 <xsd:element name="string" type="xsd:string" />
@@ -628,7 +649,7 @@ Balise optionnelle
 
 <string>toto</string>
 <string>
-    toto, 
+    toto,
     c'est le meilleur
 </string>
 
@@ -642,15 +663,16 @@ Balise optionnelle
     xx-YY (YY :  code pays en majuscule)
  -->
 
- <langue>fr-CA</langue>
- <langue>fr-FR</langue>
- <langue>en</langue>
- <langue>en-US</langue>
- <langue>en-GB</langue>
- <langue>en-CA</langue>
+<langue>fr-CA</langue>
+<langue>fr-FR</langue>
+<langue>en</langue>
+<langue>en-US</langue>
+<langue>en-GB</langue>
+<langue>en-CA</langue>
 
 <!-- 
-    nmtoken string sans espace au début et à la fin, sans tabulation, sans retour chariot, sans saut de ligne
+    nmtoken string sans espace au début et à la fin, sans tabulation, sans retour chariot, sans saut de
+ligne
     caractères spéciaux acceptés : 
         . - _ et :
     utilisé uniquement pour les attributs
@@ -660,7 +682,8 @@ Balise optionnelle
 <balise myToken="AZERTY">Contenu de ma balise</balise>
 <balise myToken="123456">Contenu de ma balise</balise>
 
-<!-- invalide : il y a un espace après le dernier caracrtère de la valeur de l'attribut <> type nmtoken -->
+<!-- invalide : il y a un espace après le dernier caracrtère de la valeur de l'attribut <> type
+nmtoken -->
 <balise myToken="123456 ">Contenu de ma balise</balise>
 
 <!-- 
@@ -674,7 +697,8 @@ Balise optionnelle
 <balise myTokens="AZERTY 123456">Contenu de ma balise</balise>
 <balise myTokens="A:B_b-2.3 AZERTY 123456">Contenu de ma balise</balise>
 
-<!-- invalide : il y a un espace avant le premier caracrtère de la valeur de l'attribut <> type nmtokens -->
+<!-- invalide : il y a un espace avant le premier caracrtère de la valeur de l'attribut <> type
+nmtokens -->
 <balise myTokens=" AZERTY 123456">Contenu de ma balise</balise>
 
 <!-- ID et IDREF -->
@@ -701,53 +725,57 @@ Balise optionnelle
 
 <!--
     Entity
-    Entity permet de référencer des éléments entités, souvent non xml, qui sont déclarés dans des dtd (soit fichier.dtd soit doctype dtd directement dans le fichier xml)
+    Entity permet de référencer des éléments entités, souvent non xml, qui sont déclarés dans des dtd
+(soit fichier.dtd soit doctype dtd directement dans le fichier xml)
     Ne s'utilise que dans les attributs
  -->
 
- <!-- .xsd -->
+<!-- .xsd -->
 <xsd:attribute name="marque" type="xsd:ENTITY" />
- <!-- .dtd -->
+<!-- .dtd -->
 <!ENTITY samsung "Samsung">
 <!ENTITY apple "Apple">
- <!-- .xml -->
- <telephone marque="samsung">Galaxy SII</samsung>
- <telephone marque="apple">Iphone 254</samsung>
+<!-- .xml -->
+<telephone marque="samsung">Galaxy SII
+</samsung>
+<telephone marque="apple">Iphone 254
+</samsung>
 
 <!-- ENTITIES -->
- <!-- .xsd -->
- <xsd:attribute name="marque" type="xsd:ENTITIES" />
- <!-- .dtd -->
+<!-- .xsd -->
+<xsd:attribute name="marque" type="xsd:ENTITIES" />
+<!-- .dtd -->
 <!ENTITY samsung "Samsung">
 <!ENTITY apple "Apple">
- <!-- .xml -->
- <telephone marque="samsung apple" />
+<!-- .xml -->
+<telephone marque="samsung apple" />
 
- <!-- Les éléments et les types complexes -->
- <!-- personne : élément complexe (il contient d'autres balises) -->
- <personne>
+<!-- Les éléments et les types complexes -->
+<!-- personne : élément complexe (il contient d'autres balises) -->
+<personne>
     <!-- élément simple -->
     <nom>Robert</nom>
-    <!-- élément simple -->    
+    <!-- élément simple -->
     <prenom>Axel</prenom>
- </personne>
+</personne>
 
- <!-- personne : élément complexe contient au moins un attribut -->
- <personne type="physique">Axel Robert</personne>
+<!-- personne : élément complexe contient au moins un attribut -->
+<personne type="physique">Axel Robert</personne>
 
- <!-- balise est un élément complexe : contient d'autres balises et au moins un attribut -->
- <balise attr="test">
+<!-- balise est un élément complexe : contient d'autres balises et au moins un attribut -->
+<balise attr="test">
     <!--  contient d'autres balises -->
- </balise>
+</balise>
 
- <!-- pour déclarer un élément complexe -->
- <xsd:element name="personne">
-    <xsd:complexeType>
-        <!-- description du complexeType attrobuts s'il y en a de personne et déclarations des balises à l'intérieur s'il y en a -->
-    </xsd:complexeType>
- </xsd:personne>
+<!-- pour déclarer un élément complexe -->
+<xsd:element name="personne">
+<xsd:complexeType>
+    <!-- description du complexeType attrobuts s'il y en a de personne et déclarations des balises à
+    l'intérieur s'il y en a -->
+</xsd:complexeType>
+</xsd:personne>
 
- <!-- 
+<!-- 
     Élements complexes avec du contenu simple
   -->
 
@@ -791,37 +819,40 @@ Balise optionnelle
 </personne>
 
 <xsd:element name="personne">
-    <xsd:complexeType>
-        <!-- ATTENTION : sequence implique que l'ordre des balises dans le XML doit être dans le même ordre dans la déclaration -->
-        <xsd:sequence>
-            <xsd:element name="prenom" type="xsd:string" />
-            <xsd:element name="nom" type="xsd:string" />
-        </xsd:sequence>
-        <xsd:attribute name="type" type="xsd:string" />
-    </xsd:complexeType>
+<xsd:complexeType>
+    <!-- ATTENTION : sequence implique que l'ordre des balises dans le XML doit être dans le même
+    ordre dans la déclaration -->
+    <xsd:sequence>
+        <xsd:element name="prenom" type="xsd:string" />
+        <xsd:element name="nom" type="xsd:string" />
+    </xsd:sequence>
+    <xsd:attribute name="type" type="xsd:string" />
+</xsd:complexeType>
 </xsd:personne>
 
-<!-- si on utilise all à la place de sequence, il est possible de déclarer les balise dans n'importe quel ordre  -->
+<!-- si on utilise all à la place de sequence, il est possible de déclarer les balise dans n'importe
+quel ordre  -->
 <xsd:element name="personne">
-    <xsd:complexeType>
-        <xsd:all>
-            <xsd:element name="nom" type="xsd:string" />
-            <xsd:element name="prenom" type="xsd:string" />
-        </xsd:all>
-        <xsd:attribute name="type" type="xsd:string" />
-    </xsd:complexeType>
+<xsd:complexeType>
+    <xsd:all>
+        <xsd:element name="nom" type="xsd:string" />
+        <xsd:element name="prenom" type="xsd:string" />
+    </xsd:all>
+    <xsd:attribute name="type" type="xsd:string" />
+</xsd:complexeType>
 </xsd:personne>
 
 <!-- dans les cas précédents, les balise déclarées doivent être présentent dans le xml -->
-<!-- en utilisant choice au lieu de sequence ou all, les balises déclarées dans ce choix deviennent facultative -->
+<!-- en utilisant choice au lieu de sequence ou all, les balises déclarées dans ce choix deviennent
+facultative -->
 <xsd:element name="personne">
-    <xsd:complexeType>
-        <xsd:choice>
-            <xsd:element name="nom" type="xsd:string" />
-            <xsd:element name="prenom" type="xsd:string" />
-        </xsd:choice>
-        <xsd:attribute name="type" type="xsd:string" />
-    </xsd:complexeType>
+<xsd:complexeType>
+    <xsd:choice>
+        <xsd:element name="nom" type="xsd:string" />
+        <xsd:element name="prenom" type="xsd:string" />
+    </xsd:choice>
+    <xsd:attribute name="type" type="xsd:string" />
+</xsd:complexeType>
 </xsd:personne>
 
 <!-- avec choice, tous les format xml suivants sont valides -->
@@ -865,14 +896,11 @@ Balise optionnelle
 </xsd:element>
 
 <!-- contenu mixte -->
-<description>
-    Une console de <b>80</b>x<b>120</b> cm, <prix>200</prix> euro
-</description>
+<description> Une console de <b>80</b>x<b>120</b> cm, <prix>200</prix> euro </description>
 
 
-<facture>
-    L'acheteur <acheteur>Brendan L. Mulligan</acheteur>, doit payer la somme de <somme>1000</somme> euros
-</facture>
+<facture> L'acheteur <acheteur>Brendan L. Mulligan</acheteur>, doit payer la somme de <somme>1000</somme>
+    euros </facture>
 <!-- facture -->
 <xsd:element name="facture">
     <xsd:complexeType mixed="true">
@@ -893,27 +921,307 @@ Balise optionnelle
 </personne>
 
 <xsd:element name="personne">
-    <xsd:complexeType>
-        <xsd:sequence>
-            <xsd:element name="nom" type="xsd:string" />
-            <xsd:element name="prenom" type="xsd:string" 
-            minOccurs="1" 
+<xsd:complexeType>
+    <xsd:sequence>
+        <xsd:element name="nom" type="xsd:string" />
+        <xsd:element name="prenom" type="xsd:string"
+            minOccurs="1"
             maxOccurs="4" />
-        </xsd:sequence>
-        <xsd:attribute name="type" type="xsd:string" />
-    </xsd:complexeType>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="xsd:string" />
+</xsd:complexeType>
 </xsd:personne>
 
 <!-- de 0 à X occurences -->
 
 <xsd:element name="personne">
-    <xsd:complexeType>
-        <xsd:sequence>
-            <xsd:element name="nom" type="xsd:string" />
-            <xsd:element name="prenom" type="xsd:string" 
-            minOccurs="0" 
+<xsd:complexeType>
+    <xsd:sequence>
+        <xsd:element name="nom" type="xsd:string" />
+        <xsd:element name="prenom" type="xsd:string"
+            minOccurs="0"
             maxOccurs="unbounded" />
-        </xsd:sequence>
-        <xsd:attribute name="type" type="xsd:string" />
-    </xsd:complexeType>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="xsd:string" />
+</xsd:complexeType>
 </xsd:personne>
+
+<!-- 
+    Réutilisation des types et des élément : Simplifier l'écriture et la lecture des xsd
+-->
+
+<banque>
+    <!-- 1er client -->
+    <client>
+        <identite>
+            <nom>Adams</nom>
+            <prenom>Douglas</prenom>
+            <adresse>
+                <numero>21</numero>
+                <voie>Baker Street</voie>
+                <codepostal>W1U 8ED</codepostal>
+                <ville>Londre</ville>
+                <pays codelang="en-GB">Angleterre</pays>
+            </adresse>
+        </identite>
+        <comptes>
+            <compteInterets interets="1.5" nom="Livret A">
+                <montant>2500</montant>
+            </compteInterets>
+            <compteInterets interets="1.2" nom="LEP">
+                <montant>23500</montant>
+            </compteInterets>
+            <compte>
+                <montant>4200</montant>
+            </compte>
+        </comptes>
+    </client>
+</banque>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- définir le schéma du xsd -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <!-- élément banque -->
+    <xsd:element name="banque">
+        <xsd:complexType>
+            <xsd:sequence>
+                <!-- element client -->
+                <xsd:element name="client" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <!-- identité -->
+                            <xsd:element name="identite">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <!-- elements nom, prenom -->
+                                        <xsd:element name="nom" type="xsd:string" />
+                                        <xsd:element name="prenom" type="xsd:string" />
+                                        <!-- elements adresse-->
+                                        <xsd:element name="adresse">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <!-- elements nimero, voie, codepostal, ville,
+                                                    pays -->
+                                                    <xsd:element name="numero" type="xsd:string" />
+                                                    <xsd:element name="voie" type="xsd:string" />
+                                                    <xsd:element name="codepostal" type="xsd:string" />
+                                                    <xsd:element name="ville" type="xsd:string" />
+                                                    <!-- element complexe pays -->
+                                                    <xsd:element name="pays">
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:extension base="xsd:string">
+                                                                    <xsd:attribute name="codelang" type="xsd:string" />
+                                                                </xsd:extension>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <!-- comptes -->
+                            <xsd:element name="comptes">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <!-- compteInterets -->
+                                        <xsd:element
+                                            name="compteInterets"
+                                            minOccurs="0"
+                                            maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:attribute name="interets" type="xsd:float" />
+                                                <xsd:attribute name="nom" type="xsd:string" />
+                                                <xsd:sequence>
+                                                    <!-- montant -->
+                                                    <xsd:element name="montant" type="xsd:float" />
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <!-- compte -->
+                                        <xsd:element name="compte">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <!-- montant -->
+                                                    <xsd:element name="montant" type="xsd:float" />
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+
+<!-- 
+    Les xsd deviennent très difficiles à lire (et a écrire !), 
+    il est possible (recommandé) de les découper en parties réutilisables,
+    pour les rendre plus facile a écrire et a lire
+    le mot-clef : ref
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- définir le schéma du xsd -->
+
+<!-- déclaration des éléments simples -->
+<xsd:element name="nom" type="xsd:string" />
+<xsd:element name="prenom" type="xsd:string" />
+<xsd:element name="numero" type="xsd:string" />
+<xsd:element name="voie" type="xsd:string" />
+<xsd:element name="codepostal" type="xsd:string" />
+<xsd:element name="ville" type="xsd:string" />
+<!-- déclaration de l'élément complexe pays -->
+<xsd:element name="pays">
+    <xsd:complexType>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="codelang" type="xsd:string" />
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+</xsd:element>
+<!-- déclaration de l'élément simple montant -->
+<xsd:element name="montant" type="float" />
+
+<!-- les éléments composant adresse sont tous des éléments simple, je peux les regrouper -->
+
+<xsd:group name="grp-adresse">
+    <xsd:sequence>
+        <xsd:element ref="numero" />
+        <xsd:element ref="voie" />
+        <xsd:element ref="codepostal" />
+        <xsd:element ref="ville" />
+        <xsd:element ref="pays" />
+    </xsd:sequence>
+</xsd:group>
+
+<!-- création de l'élément adresse -->
+<xsd:element name="adresse">
+    <xsd:complexType>
+        <xsd:group ref="grp-adresse" />
+    </xsd:complexType>
+</xsd:element>
+
+<!-- créer le groupe identite -->
+<xsd:group name="grp-identite">
+    <xsd:sequence>
+        <xsd:element ref="nom" />
+        <xsd:element ref="prenom" />
+        <xsd:element ref="adresse" />
+    </xsd:sequence>
+</xsd:group>
+
+<!-- créer l'élément identité -->
+<xsd:element name="identite">
+    <xsd:complexType>
+        <xsd:group ref="grp-identite" />
+    </xsd:complexType>
+</xsd:element>
+
+<!-- 
+    On peut créer ses propres types (on le fait déjà quand on déclare complexType pour un élément).
+    Ici, compte et compte intérets ont le même format (une balise compte qui contient une balise montant)
+
+    Comment déclarer sont propre type ?
+
+    Déclarer un élément avec son propre type simple
+    ________________________________________
+    <xsd:simpleType name="mon_type_perso">
+        <xsd:restriction base="mon_type_perso">
+            ....
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+    utilisation du type simple :
+    ________________________________________
+
+    <xsd:element name="balise" type="mon_type_perso" />
+
+    déclaration d'un type complexe
+    __________________________________
+
+    <xsd:complexType name="mon_type_complexe">
+
+    </xsd:complexType>
+
+    utilisation du type complexe
+    __________________________________
+
+    <xsd:element name="mon_element_type_complexe" type="mon_type_complexe" />
+
+-->
+
+<!-- déclaration du type compteCourant -->
+<xsd:complexeType name="compteCourant">
+    <xsd:sequence>
+        <xsd:element ref="montant" />
+    </xsd:sequence>
+</xsd:complexeType>
+
+<!-- déclaration du type compteInteret -->
+<xsd:complexeType name="compteInteret">
+    <xsd:complexContent>
+        <xsd:extension base="compteCourant">
+            <xsd:attribute name="interets" type="xsd:float" />
+            <xsd:attribute name="nom" type="xsd:string" />
+        </xsd:extension>
+    </xsd:complexContent>
+</xsd:complexeType>
+
+<!-- 
+    ici, compteInteret est une extension du type compte, 
+    c'est à dire que je n'ai pas besoin de redéclarer sont contenu qui est la balise montant, 
+    en revanche, j'ajoute au type de base les attributs définissant le compteInteret
+
+    on aurait pu déclarer le type conteInteret de cette façon
+
+    <xsd:complexeType name="compteInteret">
+        <xsd:attribute name="interets" type="xsd:float" />
+        <xsd:attribute name="nom" type="xsd:string" />
+        <xsd:sequence>
+            <xsd:element ref="montant" />
+        </xsd:sequence>
+    </xsd:complexeType>
+
+-->
+
+<!-- création de la partie comptes -->
+<xsd:element name="comptes">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="compteInterets" type="compteInteret" minOccurs="0" maxOccurs= "unbounded" />
+            <xsd:element name="compte" type="compteCourant" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- création de l'élément client -->
+<xsd:element name="client">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="identite" />
+            <xsd:element ref="comptes" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- schéma final du xsd -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="banque">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="client" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
+
+<!-- créer ses types : deux façons -->
